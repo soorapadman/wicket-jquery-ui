@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+	<wicket:head>
+		<title>Wicket - jQuery UI: replace with effects</title>
+	</wicket:head>
+</head>
+<body>
+	<wicket:extend>
+		<div wicket:id="feedback"></div>
+		<div style="height: 130px;">
+			<div wicket:id="component"></div>
+		</div>
+		<br />
+		<form wicket:id="form">
+			<button wicket:id="button">Replace</button>
+		</form>
+
+		<wicket:fragment wicket:id="panel">
+			<b>Panel loaded in ajax</b><br/>
+			<p>
+				Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In suscipit faucibus urna.
+			</p>
+		</wicket:fragment>
+
+	</wicket:extend>
+</body>
+</html>

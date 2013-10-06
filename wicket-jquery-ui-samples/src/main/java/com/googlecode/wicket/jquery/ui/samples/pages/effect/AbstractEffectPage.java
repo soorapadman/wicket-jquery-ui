@@ -10,19 +10,20 @@ import com.googlecode.wicket.jquery.ui.samples.SamplePage;
 abstract class AbstractEffectPage extends SamplePage
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	public AbstractEffectPage()
 	{
-		
+
 	}
-	
+
 	@Override
 	protected List<DemoLink> getDemoLinks()
 	{
 		return Arrays.asList(
 				new DemoLink(DefaultEffectPage.class, "Effect Behavior"),
 				new DemoLink(DynamicEffectPage.class, "Effect Behavior: dynamic"),
-				new DemoLink(ContainerEffectPage.class, "Effect Container")
+				new DemoLink(ContainerEffectPage.class, "Effect Container"),
+				new DemoLink(ReplaceEffectPage.class, "Replace with effects")
 			);
 	}
 }

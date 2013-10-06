@@ -1,0 +1,2 @@
+Replace a <code>Component</code> using effects (for hiding and showing)<br/>
+Note that the replacement of the component (in the DOM) is performed <i>before</i> hide and show effects are played

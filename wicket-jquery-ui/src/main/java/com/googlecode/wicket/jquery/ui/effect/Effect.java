@@ -17,27 +17,56 @@
 package com.googlecode.wicket.jquery.ui.effect;
 
 /**
- * Provides an enumeration of effect being available in jQuery<br/>
- * It can be used as argument on {@link JQueryEffectContainer#play(org.apache.wicket.ajax.AjaxRequestTarget, Effect)}
+ * Provides an enumeration of effect available in jQuery<br/>
  *
  * @author Sebastien Briquet - sebfz1
  */
 public enum Effect
 {
+	/** The blind effect hides or shows an element by wrapping the element in a container, and “pulling the blinds” */
 	Blind("blind"),
+
+	/** The bounce effect bounces an element. When used with hide or show, the last or first bounce will also fade in/out. */
 	Bounce("bounce"),
+
+	/** The clip effect will hide or show an element by clipping the element vertically or horizontally. */
 	Clip("clip"),
+
+	/** The drop effect hides or shows an element fading in/out and sliding in a direction. */
 	Drop("drop"),
+
+	/** The explode effect hides or shows an element by splitting it into pieces. */
 	Explode("explode"),
+
+	/** The fade effect hides or shows an element by fading it. */
+	Fade("fade"),
+
+	/** The fold effect hides or shows an element by folding it. */
 	Fold("fold"),
-	Highlight("highlight"), //produce nothing !?
+
+	/** The highlight effect hides or shows an element by animating its background color first. */
+	Highlight("highlight"),
+
+	/** Creates a puff effect by scaling the element up and hiding it at the same time. */
 	Puff("puff"),
+
+	/** The pulsate effect hides or shows an element by pulsing it in or out. */
 	Pulsate("pulsate"),
-	Scale("scale"), //produce nothing !?
+
+	/** Shrink or grow an element by a percentage factor.*/
+	Scale("scale"),
+
+	/** Shakes the element multiple times, vertically or horizontally. */
 	Shake("shake"),
-	Size("size"), //produce nothing !?
-	Slide("slide");
-//	Transfer("transfer"); // cause an error, to be investigated
+
+	/** Resize an element to a specified width and height. */
+	Size("size"),
+
+	/** Slides the element out of the viewport. */
+	Slide("slide"),
+
+	/** Transfers the outline of an element to another element */
+	Transfer("transfer");
 
 	private final String name;
 
