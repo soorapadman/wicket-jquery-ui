@@ -64,7 +64,7 @@ public class Selectable<T extends Serializable> extends JQueryGenericContainer<L
 	private static final long serialVersionUID = 1L;
 
 	/** The list of selectable items */
-	private IModel<? extends List<T>> items;
+	private IModel<List<T>> items;
 
 	/**
 	 * Constructor
@@ -83,7 +83,7 @@ public class Selectable<T extends Serializable> extends JQueryGenericContainer<L
 	 * @param id the markup id
 	 * @param items the list the {@link Selectable} should observe.
 	 */
-	public Selectable(String id, IModel<? extends List<T>> items)
+	public Selectable(String id, IModel<List<T>> items)
 	{
 		super(id, new ListModel<T>());
 
@@ -97,7 +97,7 @@ public class Selectable<T extends Serializable> extends JQueryGenericContainer<L
 	 * @param model the list of selected items
 	 * @param items the list the {@link Selectable} should observe.
 	 */
-	public Selectable(String id, IModel<? extends List<T>> model, List<T> items)
+	public Selectable(String id, IModel<List<T>> model, List<T> items)
 	{
 		this(id, model, new ListModel<T>(items));
 	}
@@ -109,7 +109,7 @@ public class Selectable<T extends Serializable> extends JQueryGenericContainer<L
 	 * @param model the list of selected items
 	 * @param items the list the {@link Selectable} should observe.
 	 */
-	public Selectable(String id, IModel<? extends List<T>> model, IModel<? extends List<T>> items)
+	public Selectable(String id, IModel<List<T>> model, IModel<List<T>> items)
 	{
 		super(id, model);
 

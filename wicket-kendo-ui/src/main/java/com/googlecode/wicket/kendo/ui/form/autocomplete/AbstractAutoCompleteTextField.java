@@ -304,7 +304,7 @@ public abstract class AbstractAutoCompleteTextField<T, C> extends TextField<T> i
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected CharSequence getChoiceCallbackUrl()
+			protected CharSequence getDataCallbackUrl()
 			{
 				return choiceModelBehavior.getCallbackUrl();
 			}

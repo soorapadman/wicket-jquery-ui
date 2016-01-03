@@ -240,7 +240,7 @@ public class ComboBox<T> extends TextField<String> implements IJQueryWidget
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected CharSequence getChoiceCallbackUrl()
+			protected CharSequence getDataCallbackUrl()
 			{
 				return choiceModelBehavior.getCallbackUrl();
 			}

@@ -263,7 +263,7 @@ public class DropDownList<T> extends TextField<T> implements IJQueryWidget
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected CharSequence getChoiceCallbackUrl()
+			protected CharSequence getDataCallbackUrl()
 			{
 				return choiceModelBehavior.getCallbackUrl();
 			}

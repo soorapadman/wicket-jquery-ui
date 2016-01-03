@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.wicket.kendo.ui.form.multiselect.lazy;
+package com.googlecode.wicket.kendo.ui.chart;
 
 import org.apache.wicket.Component;
 
@@ -28,16 +28,25 @@ import com.googlecode.wicket.kendo.ui.KendoUIBehavior;
  * @author Sebastien Briquet - sebfz1
  *
  */
-public abstract class MultiSelectBehavior extends KendoUIBehavior
+public abstract class ChartBehavior extends KendoUIBehavior
 {
 	private static final long serialVersionUID = 1L;
-	public static final String METHOD = "kendoMultiSelect";
+	public static final String METHOD = "kendoChart";
 
 	private KendoDataSource dataSource;
 
-	public MultiSelectBehavior(String selector)
+	/**
+	 * TODO javadoc
+	 * @param selector
+	 */
+	public ChartBehavior(String selector)
 	{
 		super(selector, METHOD);
+	}
+
+	public ChartBehavior(String selector, Options options)
+	{
+		super(selector, METHOD, options);
 	}
 
 	// Methods //
@@ -51,14 +60,8 @@ public abstract class MultiSelectBehavior extends KendoUIBehavior
 		this.dataSource = new KendoDataSource("datasource" + this.selector);
 		this.add(this.dataSource);
 	}
-	
-	// Properties //
 
-	@Override
-	public boolean isEnabled(Component component)
-	{
-		return component.isEnabledInHierarchy();
-	}
+	// Properties //
 
 	protected abstract CharSequence getDataCallbackUrl();
 
@@ -74,7 +77,7 @@ public abstract class MultiSelectBehavior extends KendoUIBehavior
 
 		// data source //
 		if (this.isEnabled(component))
-		{		
+		{
 			this.dataSource.setTransportRead(Options.asString(this.getDataCallbackUrl()));
 		}
 	}

@@ -28,7 +28,7 @@ public abstract class JQueryGenericContainer<T> extends JQueryContainer implemen
 	 * @param id the markup id
 	 * @param model the model
 	 */
-	public JQueryGenericContainer(String id, IModel<?> model)
+	public JQueryGenericContainer(String id, IModel<T> model)
 	{
 		super(id, model);
 	}

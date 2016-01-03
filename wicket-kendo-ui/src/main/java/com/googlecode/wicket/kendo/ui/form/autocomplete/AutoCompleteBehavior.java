@@ -95,7 +95,7 @@ public abstract class AutoCompleteBehavior extends KendoUIBehavior implements IJ
 		return component.isEnabledInHierarchy();
 	}
 
-	protected abstract CharSequence getChoiceCallbackUrl();
+	protected abstract CharSequence getDataCallbackUrl();
 
 	// Events //
 
@@ -112,7 +112,7 @@ public abstract class AutoCompleteBehavior extends KendoUIBehavior implements IJ
 		// data source //
 		if (this.isEnabled(component))
 		{
-			this.dataSource.setTransportRead(Options.asString(this.getChoiceCallbackUrl()));
+			this.dataSource.setTransportRead(Options.asString(this.getDataCallbackUrl()));
 		}
 	}
 

@@ -245,7 +245,7 @@ public abstract class MultiSelect<T> extends FormComponent<Collection<T>> implem
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected CharSequence getChoiceCallbackUrl()
+			protected CharSequence getDataCallbackUrl()
 			{
 				return choiceModelBehavior.getCallbackUrl();
 			}
