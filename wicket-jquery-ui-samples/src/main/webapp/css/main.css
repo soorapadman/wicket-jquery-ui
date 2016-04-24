@@ -1,0 +1,647 @@
+/*../fonts*/
+
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.eot?cpvm6u');
+    src: url('../fonts/icomoon.eot?cpvm6u#iefix') format('embedded-opentype'), url('../fonts/icomoon.ttf?cpvm6u') format('truetype'), url('../fonts/icomoon.woff?cpvm6u') format('woff'), url('../fonts/icomoon.svg?cpvm6u#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+[class^="icon-"]:before,
+[class*=" icon-"]:before,
+[class^="icon-"]:after,
+[class*=" icon-"]:after {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    
+    font-family: 'icomoon'!important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-coffee2:before {
+    content: "\e900";
+}
+.icon-info_outline:after {
+    content: "\e903";
+}
+.icon-new-tab:after {
+    content: "\e902";
+}
+@font-face {
+    font-family: 'texgyreadventorregular';
+    src: url('../fonts/texgyreadventor-regular-webfont.eot');
+    src: url('../fonts/texgyreadventor-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/texgyreadventor-regular-webfont.woff') format('woff'), url('../fonts/texgyreadventor-regular-webfont.ttf') format('truetype'), url('../fonts/texgyreadventor-regular-webfont.svg#texgyreadventorregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Raleway-Regular';
+    src: url('../fonts/Raleway-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Raleway-Regular.woff') format('woff'), url('../fonts/Raleway-Regular.ttf') format('truetype'), url('../fonts/Raleway-Regular.svg#Raleway-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Raleway-Bold';
+    src: url('../fonts/Raleway-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/Raleway-Bold.woff') format('woff'), url('../fonts/Raleway-Bold.ttf') format('truetype'), url('../fonts/Raleway-Bold.svg#Raleway-Bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*structure*/
+
+html {
+    font-size: 18px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Raleway-Regular'!important;
+    height: 100%;
+    margin: 0;
+    padding: 0 40px;
+    color: #3a3a3c;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+header {
+        margin-top: 60px;
+}
+header .title {
+    margin-left: 50px;
+}
+.main {
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+}
+.main aside {
+    min-width: 225px;
+}
+.contentZone {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+.contentZone .component {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 50px;
+    padding: 30px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+.contentZone .component nav {
+    text-align: center;
+}
+.componentSource h3>div {
+    font-size: 0.8em;
+}
+.contentZone .component nav ul li {
+    display: inline-block;
+    line-height: 2em;
+}
+.contentZone .background img {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 10%;
+}
+.home .main {
+    max-width: 1900px;
+    margin: 0 auto;
+}
+button.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.noDisplayed {
+    display: none;
+    visibility: hidden;
+}
+/*style*/
+
+*html {
+    box-sizing: border-box;
+}
+pre {
+    white-space: normal;
+}
+button {
+    font-family: 'Raleway-Bold';
+    background-color: #fff;
+    padding: 0;
+    border: 1px solid #E15A2D;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+button:hover {
+    box-shadow: 0 0 3px #FB9D34;
+    border: 1px solid #FB9D34;
+}
+button.close {
+    width: 1.5em;
+    height: 1.5em;
+}
+h1 {
+    font-family: 'texgyreadventorregular';
+    font-weight: normal;
+    color: #E15A2D;
+}
+h2 {
+    font-family: 'Raleway-Regular';
+    font-size: 1.2em;
+    color: #505050;
+    font-weight: 600;
+}
+h3 {
+    font-family: 'Raleway-Bold';
+    font-size: 1.1em;
+}
+aside ul {
+    padding: 0;
+}
+header h1,
+header h2 {
+    margin: 0;
+}
+.description {
+    font-family: 'texgyreadventorregular';
+    color: #5f5f5f;
+    font-size: 0.9em;
+}
+p {
+    margin: 0.75em 0;
+}
+.title .description {
+    margin: 0 0 0 2em;
+}
+nav ul li {
+    list-style: none;
+}
+nav ul li a,
+aside nav a {
+    text-decoration: none;
+}
+nav.home ul {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 50px;
+}
+nav.home ul li+li:before {
+    content: "/";
+    padding: 0 0.3em;
+}
+.contentZone .component nav ul li+li:before {
+    content: "•";
+    padding: 0 0.3em 0 0;
+}
+nav.home ul li a,
+nav.home ul li a:visited {
+    font-family: 'texgyreadventorregular';
+    font-weight: 600;
+    color: #505050;
+    position: relative;
+    white-space: nowrap;
+}
+.tButton span {
+    border: 1px solid #E15A2D;
+    width: 0.7em;
+    height: 0.7em;
+    line-height: 0.7em;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.7em;
+    margin: -5px 10px 0 -1em;
+    vertical-align: middle;
+}
+.jQueryZone nav {
+    padding-left: 1.5em;
+}
+aside nav h2 {
+    color: #E15A2D;
+    font-weight: normal;
+}
+.contentZone h2 {
+    color: #E15A2D;
+    text-transform: uppercase;
+    margin: 0 auto 1em auto;
+    border-bottom: 1px solid #E15A2D;
+    padding-bottom: 10px;
+}
+aside nav h2 a,
+aside nav h2 a:visited {
+    color: #E15A2D;
+}
+.contentZone .component nav ul li a {
+    padding: 0 10px;
+}
+aside nav ul li a,
+aside nav ul li a:visited,
+.contentZone .component nav ul li a,
+.contentZone .component nav ul li a:visited {
+    color: #000;
+    line-height: 1.5em;
+    border: 1px solid transparent;
+}
+aside nav ul li a,
+aside nav ul li a:visited {
+    transition: color 0.3s ease;
+}
+.contentZone .component nav ul li a,
+.contentZone .component nav ul li a:visited {
+    transition: border-color 0.2s ease;
+    white-space: nowrap;
+}
+aside nav ul li a:hover,
+aside nav ul li a:focus {
+    outline: 0;
+    color: #E15A2D;
+    border-color: #E15A2D transparent #E15A2D transparent;
+}
+.contentZone .component nav ul li a:hover,
+.contentZone .component nav ul li a:focus {
+    outline: 0;
+    border-color: #000;
+}
+.contentZone {
+    text-align: center;
+}
+.contentZone a {
+    text-decoration: none;
+    font-family: 'Raleway-Bold';
+    padding: 0 2px;
+    border: 1px solid transparent;
+}
+.kendoZone nav button,
+.jQueryZone nav button {
+    padding: 0 10px 4px 10px;
+    height: 1.5em;
+    line-height: 1em;
+    transition: all 0.3s ease;
+    font-size: 2em;
+    margin: 0.67em 0;
+    font-family: 'texgyreadventorregular';
+    font-weight: normal;
+}
+.kendoZone nav button {
+    background: #313131;
+    color: #fff;
+    border: 1px solid #fff;
+}
+.jQueryZone nav button {
+    color: #000;
+    border: 1px solid #000;
+}
+.kendoZone nav button:hover,
+.jQueryZone nav button:hover {
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.5), 2px 2px 0px 0 rgba(0, 0, 0, 0.3);
+}
+nav.home ul li a:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    left: -10%;
+    top: 100%;
+    margin-top: -0.5px;
+    visibility: hidden;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.4);
+}
+@-webkit-keyframes MenuHoverAnim {
+    0% {
+        left: -10%;
+        opacity: 1;
+        visibility: visible;
+    }
+    65% {
+        opacity: 0.3;
+    }
+    100% {
+        left: 20%;
+        opacity: 0;
+    }
+}
+@-moz-keyframes MenuHoverAnim {
+    0% {
+        left: -10%;
+        opacity: 1;
+        visibility: visible;
+    }
+    65% {
+        opacity: 0.3;
+    }
+    100% {
+        left: 20%;
+        opacity: 0;
+    }
+}
+@-o-keyframes MenuHoverAnim {
+    0% {
+        left: -10%;
+        opacity: 1;
+        visibility: visible;
+    }
+    65% {
+        opacity: 0.3;
+    }
+    100% {
+        left: 20%;
+        opacity: 0;
+    }
+}
+@keyframes MenuHoverAnim {
+    0% {
+        left: -10%;
+        opacity: 1;
+        visibility: visible;
+    }
+    65% {
+        opacity: 0.3;
+    }
+    100% {
+        left: 20%;
+        opacity: 0;
+    }
+}
+@keyframes MenuHoverAnimTxt {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-o-keyframes MenuHoverAnimTxt {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-moz-keyframes MenuHoverAnimTxt {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+nav.home ul li a:hover:after {
+    -webkit-animation: MenuHoverAnim 0.4s ease;
+    -moz-animation: MenuHoverAnim 0.4s ease;
+    animation: MenuHoverAnim 0.4s ease;
+}
+nav.home ul li a:hover {
+    -webkit-animation: MenuHoverAnimTxt 0.4s ease;
+    -moz-animation: MenuHoverAnimTxt 0.4s ease;
+    animation: MenuHoverAnimTxt 0.4s ease;
+    color: #000;
+}
+.more {
+    position: absolute;
+    top: 0;
+}
+.more.left {
+    left: 0;
+}
+.more.right {
+    right: 0;
+}
+.infos,
+.donation {
+    display: block;
+    position: relative;
+    background: #E15A2D;
+    color: #fff;
+    line-height: 2em;
+        padding: 11px 15px;
+        
+}
+.infos p,
+.donation p {
+    margin:0;
+}
+.infos {
+    top: 0;
+    left: -100%;
+    text-align: right;
+    position: relative;
+    transition: all 0.3s ease;
+}
+.donation {
+    top: 0;
+    right: -100%;
+    position: relative;
+    transition: all 0.3s ease;
+
+}
+.infos:hover {
+    left: 0%;
+}
+.donation:hover {
+    right: 0%;
+}
+.infos:hover,
+.infos:hover p:after {
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
+}
+.donation:hover,
+.donation:hover p:before {
+        box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.3);
+
+}
+
+.more a,
+.more a:visited {
+    color: #fff;
+    font-family: "Raleway-Bold";
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid #fff;
+    padding: 3px 5px;
+    transition: all 0.3s ease;
+}
+.more a:hover,
+.more a:active {
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1), 2px 2px 0px 0 rgba(0, 0, 0, 0.2);
+}
+.infos p:after,
+.donation p:before {
+    background: #E15A2D;
+    color: #fff;
+    text-align: center;
+    font-size: 2em;
+    padding: 11px 15px;
+    position: relative;
+}
+.infos p:after {
+        top: 0;
+    right: -66px;
+    position: absolute;
+}
+.donation p:before {
+        top: 0;
+    left: -66px;
+    position: absolute;
+}
+/*responsive*/
+
+@media screen and (max-width: 1280px) {
+    body {
+        padding: 20px;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .contentZone .component button.close {
+        display: none;
+    }
+}
+@media screen and (max-width: 1023px) {
+    .home .contentZone,
+    header p.description {
+        display: none;
+    }
+    header {
+        display: block;
+    }
+    .contentZone .component {
+        position: absolute;
+        background: #fff;
+        top: 0;
+        left: 0;
+        margin: 0;
+        min-height: 100%;
+    }
+    .kendo .contentZone .component {
+        background: #000;
+    }
+}
+@media screen and (max-width: 450px) {
+    h1 {
+        font-size: 1.3em;
+    }
+    h2 {
+        font-size: 1em;
+    }
+    body {
+        padding: 0 5px;
+    }
+
+    .contentZone .component nav ul li {
+        display: block;
+        text-align: left;
+    }
+    .contentZone .component nav ul li:before {
+        content: "•";
+        padding: 0 0.3em 0 0;
+    }
+    .contentZone .component {
+        padding: 10px;
+    }
+    nav.home ul {
+        display: block;
+        margin: 1em 0 0 0;
+    }
+    nav.home ul li a:before {
+        content: "/";
+        padding: 0 0.3em;
+    }
+    nav.home ul li+li:before {
+        content: "";
+        padding: 0;
+    }
+}
+/*kendo zone*/
+
+html.kendo {
+    background: #313131;
+}
+.kendo body {
+    color: #D2D1D1;
+}
+.kendo aside.jQueryZone {
+    display: none;
+}
+.kendo header h2 {
+    color: #D2D1D1;
+}
+.kendo header p.description,
+.kendo nav.home ul li a,
+.kendo nav.home ul li a:visited,
+.kendo nav.home ul li+li:before {
+    color: #9C9C9C;
+}
+.kendo nav.home ul li a:hover {
+    color: #fff;
+}
+.kendo nav.home ul li a:after {
+    background: rgba(255, 255, 255, 0.5);
+}
+.kendo aside nav ul li a,
+.kendo aside nav ul li a:visited,
+.kendo aside nav ul li a,
+.kendo aside nav ul li a:visited,
+.kendo .contentZone .component nav ul li a,
+.kendo .contentZone .component nav ul li a:visited {
+    color: #fff;
+}
+.kendo .contentZone .component nav ul li a:hover {
+    border-color: #fff;
+}
+.kendo aside nav ul li a:hover {
+    color: #E15A2D;
+}
+.kendo .infos p:after,
+.kendo .donation p:after,
+.kendo .more a,
+.kendo .more a:visited,
+.kendo .infos,
+.kendo .donation {
+    color: #000;
+}
+.kendo .donation p:after,
+.kendo .more a,
+.kendo .more a:visited {
+    border-color: #000;
+}
+.kendo .contentZone a,
+.kendo .contentZone a:visited {
+    color: #fff;
+}
+.kendo .contentZone a:hover,
+.kendo .contentZone a:focus {
+    border: 1px solid #fff;
+}
+/*jquery zone*/
+
+.jquery aside.kendoZone {
+    display: none;
+}
+.contentZone a,
+.contentZone a:visited {
+    color: #004276;
+}
+.contentZone a:hover,
+.contentZone a:focus {
+    border: 1px solid #004276;
+}
