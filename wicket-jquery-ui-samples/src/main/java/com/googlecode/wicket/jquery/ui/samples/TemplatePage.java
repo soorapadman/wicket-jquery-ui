@@ -25,7 +25,7 @@ public abstract class TemplatePage extends WebPage
 	private static final long serialVersionUID = 1L;
 
 	protected static final String CSS_NONE = "";
-	protected static final String CSS_HOME = "home";
+//	protected static final String CSS_HOME = "home";
 	protected static final String CSS_KENDO = "kendo";
 	protected static final String CSS_JQUERY = "jquery";
 
@@ -62,7 +62,7 @@ public abstract class TemplatePage extends WebPage
 	{
 		if (Session.get().getMetaData(template) == null)
 		{
-			TemplatePage.applyTemplate(CSS_HOME);
+			TemplatePage.resetTemplate();
 		}
 	}
 
