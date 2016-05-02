@@ -129,8 +129,7 @@ margin:0;}
 .componentDescription pre {
     padding:10px;
     position: relative;
-        box-shadow: 0 0px 0px 1px #DCDCDC;
-        border-bottom: 1px  dashed #565656;
+    border-bottom: 1px  dashed #565656;
 }
 .componentDescription pre:before {
     content:"";
@@ -153,7 +152,6 @@ margin:0;}
     margin-top: 10%;
 }
 section.main,
-nav.home,
 header {
     max-width: 1900px;
     margin: 0 auto;
@@ -234,9 +232,10 @@ aside nav a {
     text-decoration: none;
 }
 nav.home ul {
-    margin-right: 15%;
-    text-align: right;
-}nav.home ul li {
+    text-align: center;
+        padding: 0;
+}
+nav.home ul li {
     display: inline-block;
 }
 nav.home ul li+li:before {
@@ -306,26 +305,29 @@ aside nav ul li a:visited,
 .contentZone .component nav ul li a,
 .contentZone .component nav ul li a:visited {
     color: #000;
-    line-height: 1.5em;
     border: 1px solid transparent;
     display: inline-block;
 }
 aside nav ul li a,
 aside nav ul li a:visited {
     transition: color 0.3s ease;
+    padding: 0.1em 0;
+    margin: 0.1em 0;
 }
 .contentZone .component nav ul li a,
 .contentZone .component nav ul li a:visited {
     transition: border-color 0.2s ease; 
     font-family: 'Raleway-Regular';
+    line-height: 1.5em;
 }
 aside nav ul li a:hover,
 aside nav ul li a:focus,
-aside nav ul li a.current {
+aside nav ul li a:not([href]) {
     outline: 0;
     color: #E15A2D;
     border-color: #E15A2D transparent #E15A2D transparent;
 }
+ 
 .contentZone .component nav ul li a:hover,
 .contentZone .component nav ul li a:focus,
     nav.home ul li a:focus {
@@ -474,7 +476,8 @@ nav.home ul li a:hover:after {
 }
 nav.home ul li a:hover,
 nav.home ul li a:active,
- nav.home ul li a:focus {
+ nav.home ul li a:focus,
+  nav.home ul li a:not([href]){
     -webkit-animation: MenuHoverAnimTxt 0.4s ease;
     -moz-animation: MenuHoverAnimTxt 0.4s ease;
     animation: MenuHoverAnimTxt 0.4s ease;
@@ -484,9 +487,7 @@ nav.home ul li a:active,
     outline:0;
     border:1px solid #000;
  }
-nav.home ul li a.current {
-    color:#000;
-}
+
 .more {
     width: 100%;
     position: absolute;
