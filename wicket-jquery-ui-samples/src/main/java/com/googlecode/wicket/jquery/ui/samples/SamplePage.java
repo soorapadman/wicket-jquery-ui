@@ -134,7 +134,7 @@ public abstract class SamplePage extends TemplatePage
 			@Override
 			public WebMarkupContainer getPanel(String panelId)
 			{
-				return new JavaFragment(panelId, SamplePage.this, getSource(Source.HTML));
+				return new HtmlFragment(panelId, SamplePage.this, getSource(Source.HTML));
 			}
 		};
 	}

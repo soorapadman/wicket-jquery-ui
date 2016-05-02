@@ -85,17 +85,10 @@ public abstract class TemplatePage extends WebPage
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void onConfigure()
-			{
-				super.onConfigure();
-
-				this.setEnabled(!CSS_KENDO.equals(Session.get().getMetaData(template)));
-			}
-
-			@Override
 			public void onClick()
 			{
-				Session.get().setMetaData(template, CSS_KENDO);
+				String current = Session.get().getMetaData(template);
+				Session.get().setMetaData(template, CSS_NONE.equals(current) ? CSS_KENDO : CSS_NONE);
 			}
 		};
 	}
@@ -107,17 +100,10 @@ public abstract class TemplatePage extends WebPage
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void onConfigure()
-			{
-				super.onConfigure();
-
-				this.setEnabled(!CSS_JQUERY.equals(Session.get().getMetaData(template)));
-			}
-
-			@Override
 			public void onClick()
 			{
-				Session.get().setMetaData(template, CSS_JQUERY);
+				String current = Session.get().getMetaData(template);
+				Session.get().setMetaData(template, CSS_NONE.equals(current) ? CSS_JQUERY : CSS_NONE);
 			}
 		};
 	}
