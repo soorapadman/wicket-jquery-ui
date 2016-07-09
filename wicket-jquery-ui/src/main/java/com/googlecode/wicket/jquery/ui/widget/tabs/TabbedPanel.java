@@ -23,6 +23,7 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.core.request.handler.IPartialPageRequestHandler;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -260,8 +261,11 @@ public class TabbedPanel extends JQueryGenericPanel<List<ITab>> implements ITabs
 				if (tab.isVisible())
 				{
 					final String newId = panels.newChildId();
+					
+					// tab //
+					WebMarkupContainer container = TabbedPanel.this.newTabContainer("tab", item.getIndex());
 
-					// link (tab) //
+					// link //
 					Label link = TabbedPanel.this.newTitleLabel("link", tab.getTitle());
 					link.add(AttributeModifier.replace("href", "#" + newId));
 					item.add(link);
