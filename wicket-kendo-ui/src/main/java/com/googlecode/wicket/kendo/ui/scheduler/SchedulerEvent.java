@@ -17,18 +17,15 @@
 package com.googlecode.wicket.kendo.ui.scheduler;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.googlecode.wicket.jquery.core.utils.DateUtils;
-import com.googlecode.wicket.kendo.ui.scheduler.resource.Id;
 
 /**
- * Provides a base Bean that can be used with a {@link SchedulerModel}
+ * Provides a scheduler event that can be used with a {@link SchedulerModel}
  *
  * @author Sebastien Briquet - sebfz1
  *
@@ -371,73 +368,11 @@ public class SchedulerEvent implements Serializable
 	 * Gets a field value
 	 *
 	 * @param field the field (ie: 'resourceId')
-	 * @return the value, which is either a {@code String}, an {@code Integer}, a {@code List&lt;String&gt;} or a {@code List&lt;Integer&gt;}
+	 * @return the value, which is either a {@code String} (default) or an {@code Object}
 	 */
-	@SuppressWarnings("unchecked")
 	public final Object getValue(String field)
 	{
-		Object object = this.fields.get(field); // either an Object, an Id or a List<Id<?>>
-
-		if (object instanceof Id<?>)
-		{
-			return ((Id<?>) object).get();
-		}
-
-		if (object instanceof List<?>)
-		{
-			List<Object> list = new ArrayList<Object>();
-
-			for (Id<?> id : (List<Id<?>>) object)
-			{
-				list.add(id.get());
-			}
-
-			return list;
-		}
-
-		return object;
-	}
-
-	/**
-	 * Gets a field value
-	 *
-	 * @param <T> the object type
-	 * @param field the field (ie: 'resourceId')
-	 * @param type the return type
-	 * @return the typed value
-	 */
-	@SuppressWarnings("unchecked")
-	public final <T> T getValue(String field, Class<T> type)
-	{
-		Object object = this.getValue(field);
-
-		if (object != null)
-		{
-			return (T) object;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Gets a field value
-	 *
-	 * @param <T> the object type
-	 * @param field the field (ie: 'resourceId')
-	 * @param type the return type
-	 * @param defaultValue the value to return if field's value is {@code null} or does not exist
-	 * @return the typed value
-	 */
-	public final <T> T getValue(String field, Class<T> type, T defaultValue)
-	{
-		T object = this.getValue(field, type);
-
-		if (object != null)
-		{
-			return object;
-		}
-
-		return defaultValue;
+		return this.fields.get(field);
 	}
 
 	/**
@@ -446,64 +381,9 @@ public class SchedulerEvent implements Serializable
 	 * @param field the field
 	 * @param value the value
 	 */
-	public final void setValue(String field, String value)
+	public final void setValue(String field, Object value)
 	{
 		this.fields.put(field, value);
-	}
-
-	/**
-	 * Sets a resource value
-	 *
-	 * @param field the field
-	 * @param value the value
-	 */
-	public final void setValue(String field, Number value)
-	{
-		this.fields.put(field, value);
-	}
-
-	/**
-	 * Sets a resource value
-	 *
-	 * @param field the field
-	 * @param value the values
-	 */
-	public final void setValue(String field, List<?> value)
-	{
-		this.fields.put(field, value);
-	}
-
-	/**
-	 * Sets a resource value
-	 *
-	 * @param field the field (ie: 'resourceId')
-	 * @param id the id-value
-	 */
-	public final void setResource(String field, String id)
-	{
-		this.fields.put(field, Id.valueOf(id));
-	}
-
-	/**
-	 * Sets a resource value
-	 *
-	 * @param field the resource field (ie: 'resourceId')
-	 * @param id the id-value
-	 */
-	public final void setResource(String field, Number id)
-	{
-		this.fields.put(field, Id.valueOf(id));
-	}
-
-	/**
-	 * Sets a resource value
-	 *
-	 * @param field the resource field (ie: 'resourceId')
-	 * @param ids the id-values
-	 */
-	public final void setResource(String field, List<?> ids)
-	{
-		this.fields.put(field, Id.valueOf(ids));
 	}
 
 	// Methods //

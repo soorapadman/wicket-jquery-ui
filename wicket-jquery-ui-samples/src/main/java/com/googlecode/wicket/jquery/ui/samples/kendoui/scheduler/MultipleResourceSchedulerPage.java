@@ -16,7 +16,9 @@ import com.googlecode.wicket.jquery.ui.samples.data.dao.scheduler.EmployeeEvents
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.multiselect.MultiSelect;
 import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
+import com.googlecode.wicket.kendo.ui.scheduler.ISchedulerConverter;
 import com.googlecode.wicket.kendo.ui.scheduler.Scheduler;
+import com.googlecode.wicket.kendo.ui.scheduler.SchedulerConverter;
 import com.googlecode.wicket.kendo.ui.scheduler.SchedulerEvent;
 import com.googlecode.wicket.kendo.ui.scheduler.SchedulerModel;
 import com.googlecode.wicket.kendo.ui.scheduler.resource.Resource;
@@ -105,6 +107,27 @@ public class MultipleResourceSchedulerPage extends AbstractSchedulerPage // NOSO
 				this.info("Deleted: " + event);
 				target.add(feedback);
 			}
+
+			@Override
+			protected ISchedulerConverter newConverter()
+			{
+				return new SchedulerConverter() {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					protected Object convertFieldValue(String field, String value)
+					{
+						// resource ids for rooms are integer
+						if (field.equals(EmployeeEventsDAO.ROOM_ID))
+						{
+							return Integer.valueOf(value);
+						}
+
+						return super.convertFieldValue(field, value);
+					}
+				};
+			}
 		};
 
 		form.add(scheduler);
@@ -153,15 +176,15 @@ public class MultipleResourceSchedulerPage extends AbstractSchedulerPage // NOSO
 	static ResourceList newRoomList()
 	{
 		List<Resource> list = new ArrayList<Resource>();
-		list.add(new Resource(1, "Room #1", "#6699cc"));
-		list.add(new Resource(2, "Room #2", "#9966cc"));
+		list.add(new Resource(EmployeeEventsDAO.ROOM_1, "Room #1", "#6699cc")); // caution, integer ids have been used, the SchedulerConverter should reflect this
+		list.add(new Resource(EmployeeEventsDAO.ROOM_2, "Room #2", "#9966cc"));
 
 		return newRoomList(list);
 	}
 
 	static ResourceList newRoomList(Collection<Resource> resources)
 	{
-		ResourceList list = new ResourceList("Room", "roomId", "Rooms"); // grouping by "Rooms" (optional)
+		ResourceList list = new ResourceList("Room", EmployeeEventsDAO.ROOM_ID, "Rooms"); // grouping by "Rooms" (optional)
 
 		for (Resource resource : resources)
 		{
@@ -173,8 +196,8 @@ public class MultipleResourceSchedulerPage extends AbstractSchedulerPage // NOSO
 
 	static ResourceList newEmployeeList()
 	{
-		ResourceList list = new ResourceList("Employee", "employeeId", true); // true: multiple
-		list.add(new Resource(EmployeeEventsDAO.EMPLOYEE_1, "Patrick", "#339966")); // using EMPLOYEE_X/uuid like (String)
+		ResourceList list = new ResourceList("Employee", EmployeeEventsDAO.EMPLOYEE_ID, true); // true: multiple
+		list.add(new Resource(EmployeeEventsDAO.EMPLOYEE_1, "Patrick", "#339966")); // using EMPLOYEE_X/uuid like
 		list.add(new Resource(EmployeeEventsDAO.EMPLOYEE_2, "Sebastien", "#996633"));
 
 		return list;

@@ -37,10 +37,10 @@ public class Resource implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	private final Id<?> id;
+	private final Object id;
 	private String text;
 	private String color;
-	
+
 	/** optional fields */
 	private final Map<String, Object> fields = new HashMap<String, Object>();
 
@@ -51,7 +51,7 @@ public class Resource implements Serializable
 	 */
 	protected Resource(String id)
 	{
-		this(Id.valueOf(id), null, null);
+		this(id, null, null);
 	}
 
 	/**
@@ -59,9 +59,9 @@ public class Resource implements Serializable
 	 *
 	 * @param id - the resource id
 	 */
-	protected Resource(Integer id)
+	protected Resource(Object id)
 	{
-		this(Id.valueOf(id), null, null);
+		this(id, null, null);
 	}
 
 	/**
@@ -73,7 +73,19 @@ public class Resource implements Serializable
 	 */
 	public Resource(String id, String text)
 	{
-		this(Id.valueOf(id), text, null);
+		this(id, text, null);
+	}
+
+	/**
+	 * Constructor<br>
+	 * <b>Caution:</b> string-numbers as will be interpreted as integers
+	 *
+	 * @param id - the resource id
+	 * @param text - the text (ie: the name of the resource)
+	 */
+	public Resource(Object id, String text)
+	{
+		this(id, text, null);
 	}
 
 	/**
@@ -86,18 +98,9 @@ public class Resource implements Serializable
 	 */
 	public Resource(String id, String text, String color)
 	{
-		this(Id.valueOf(id), text, color);
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @param id - the resource id
-	 * @param text - the text (ie: the name of the resource)
-	 */
-	public Resource(Number id, String text)
-	{
-		this(Id.valueOf(id), text, null);
+		this.id = id;
+		this.text = text;
+		this.color = color;
 	}
 
 	/**
@@ -107,19 +110,7 @@ public class Resource implements Serializable
 	 * @param text - the text (ie: the name of the resource)
 	 * @param color - the color (ie: #336699)
 	 */
-	public Resource(Integer id, String text, String color)
-	{
-		this(Id.valueOf(id), text, color);
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @param id - the resource id
-	 * @param text - the text (ie: the name of the resource)
-	 * @param color - the color (ie: #336699)
-	 */
-	Resource(Id<?> id, String text, String color)
+	public Resource(Object id, String text, String color)
 	{
 		this.id = id;
 		this.text = text;
@@ -137,7 +128,7 @@ public class Resource implements Serializable
 	@SuppressWarnings("unchecked")
 	public <T> T getId()
 	{
-		return (T) this.id.get();
+		return (T) this.id;
 	}
 
 	/**
@@ -246,7 +237,7 @@ public class Resource implements Serializable
 	{
 		Options value = new Options();
 
-		value.set("value", this.id.getValue());
+		value.set("value", Options.asString(this.id));
 		value.set("text", Options.asString(this.text));
 
 		if (this.color != null)
