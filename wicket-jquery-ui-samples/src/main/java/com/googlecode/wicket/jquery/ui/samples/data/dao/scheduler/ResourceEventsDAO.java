@@ -24,11 +24,11 @@ public class ResourceEventsDAO extends AbstractSchedulerEventsDAO
 
 	protected ResourceEventsDAO()
 	{
-		SchedulerEvent event1 = new SchedulerEvent(this.newId(), "Event #1", new Date());
+		SchedulerEvent event1 = new SchedulerEvent(newId(), "Event #1", new Date());
 		event1.setValue(AGENDA_ID, AGENDA_1);
 		this.list.add(event1);
 
-		SchedulerEvent event2 = new SchedulerEvent(this.newId(), "Event #2", new Date());
+		SchedulerEvent event2 = new SchedulerEvent(newId(), "Event #2", new Date());
 		event2.setValue(AGENDA_ID, AGENDA_2);
 		this.list.add(event2);
 	}

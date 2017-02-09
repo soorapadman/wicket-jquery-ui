@@ -88,7 +88,7 @@ public class SchedulerConverter implements ISchedulerConverter
 		try
 		{
 			SchedulerEvent event = new SchedulerEvent();
-			event.setId(object.getInt("id"));
+			event.setId(object.get("id")); // Object
 			event.setTitle(object.optString("title"));
 			event.setDescription(object.optString("description"));
 

@@ -12,8 +12,8 @@ public class EmployeeEventsDAO extends AbstractSchedulerEventsDAO
 	public static final Integer ROOM_2 = 2;
 
 	public static final String EMPLOYEE_ID = "employeeId";
-	public static final String EMPLOYEE_1 = "f5d884f9-7657-474f-8a7a-884ad591ef3b"; // uuid strings
-	public static final String EMPLOYEE_2 = "970ad1d7-505d-4095-a228-dafef8c04f6e";
+	public static final String EMPLOYEE_1 = "f5d884f9-7657"; // uuid-like strings
+	public static final String EMPLOYEE_2 = "970ad1d7-505d";
 
 	private static EmployeeEventsDAO instance = null;
 
@@ -29,14 +29,12 @@ public class EmployeeEventsDAO extends AbstractSchedulerEventsDAO
 
 	protected EmployeeEventsDAO()
 	{
-		super();
-
-		SchedulerEvent event1 = new SchedulerEvent(this.newId(), "Meeting #1", new Date());
+		SchedulerEvent event1 = new SchedulerEvent(newId(), "Meeting #1", new Date());
 		event1.setValue(ROOM_ID, ROOM_1);
 		event1.setValue(EMPLOYEE_ID, Arrays.asList(EMPLOYEE_1, EMPLOYEE_2));
 		super.list.add(event1);
 
-		SchedulerEvent event2 = new SchedulerEvent(this.newId(), "Meeting #2", new Date());
+		SchedulerEvent event2 = new SchedulerEvent(newId(), "Meeting #2", new Date());
 		event2.setValue(ROOM_ID, ROOM_2);
 		event2.setValue(EMPLOYEE_ID, Arrays.asList(EMPLOYEE_1, EMPLOYEE_2));
 		super.list.add(event2);

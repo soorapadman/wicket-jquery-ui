@@ -174,7 +174,7 @@ public class MultipleResourceSchedulerPage extends AbstractSchedulerPage // NOSO
 	static ResourceList newEmployeeList()
 	{
 		ResourceList list = new ResourceList("Employee", EmployeeEventsDAO.EMPLOYEE_ID, true); // true: multiple
-		list.add(new Resource(EmployeeEventsDAO.EMPLOYEE_1, "Patrick", "#339966")); // using uuid-string ids
+		list.add(new Resource(EmployeeEventsDAO.EMPLOYEE_1, "Patrick", "#339966")); // using uuid-like ids
 		list.add(new Resource(EmployeeEventsDAO.EMPLOYEE_2, "Sebastien", "#996633"));
 
 		return list;

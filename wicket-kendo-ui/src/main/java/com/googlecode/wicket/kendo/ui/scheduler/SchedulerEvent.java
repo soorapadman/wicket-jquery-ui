@@ -25,8 +25,21 @@ import java.util.Set;
 import com.googlecode.wicket.jquery.core.utils.DateUtils;
 
 /**
- * Provides a scheduler event that can be used with a {@link SchedulerModel}
+ * Provides a scheduler event that can be used with a {@link SchedulerModel}<br/>
+ * If the IDs are not numbers, the datasource's schema need to reflect the type. ie:
+ * <pre><code>
+ * // Scheduler
+ * protected void onConfigure(SchedulerDataSource dataSource)
+ * {
+ * 	super.onConfigure(dataSource);
+ * 
+ * 	Options options = SchedulerDataSource.newSchemaFields();
+ * 	options.set("id", "{ type: 'string' }"); // override default type for event-id
+ * 
+ * 	dataSource.set("schema", String.format("{ model: { fields: %s } }", options));
+ * }
  *
+ * </code></pre>
  * @author Sebastien Briquet - sebfz1
  *
  */
@@ -36,20 +49,16 @@ public class SchedulerEvent implements Serializable
 
 	private static final int DEFAULT_RANGE = 1; // hour
 
-	/** new event id */
-	public static final int NEW_ID = 0;
-
-	private int id;
+	private Object id;
 	private String title;
-	private String description;
-
 	private long start;
 	private long end;
-	private boolean allDay;
 
-	private String recurrenceId;
-	private String recurrenceRule;
-	private String recurrenceException;
+	private boolean allDay = false;
+	private String description = null;
+	private String recurrenceId = null;
+	private String recurrenceRule = null;
+	private String recurrenceException = null;
 
 	/** server side */
 	private boolean visible = true;
@@ -62,8 +71,71 @@ public class SchedulerEvent implements Serializable
 	 */
 	public SchedulerEvent()
 	{
-		this(NEW_ID, "", new Date());
+		this((Object) null, "", new Date());
 	}
+	
+	// Constructor (Object) //
+
+	/**
+	 * Constructor<br>
+	 * The end date will be the start date + {@link #DEFAULT_RANGE} hour(s)<br>
+	 * <b>Caution:</b> if the id is not a number, the datasource's schema need to reflect the type
+	 *
+	 * @param id the event id
+	 * @param title the event title
+	 * @param start the start date
+	 */
+	public SchedulerEvent(Object id, String title, Date start)
+	{
+		this(id, title, start.getTime());
+	}
+
+	/**
+	 * Constructor<br>
+	 * The end date will be the start date + {@link #DEFAULT_RANGE} hour(s)<br>
+	 * <b>Caution:</b> if the id is not a number, the datasource's schema need to reflect the type
+	 *
+	 * @param id the event id
+	 * @param title the event title
+	 * @param start the start date
+	 */
+	public SchedulerEvent(Object id, String title, long start)
+	{
+		this(id, title, start, DateUtils.addHours(start, DEFAULT_RANGE));
+	}
+
+	/**
+	 * Constructor<br>
+	 * <b>Caution:</b> if the id is not a number, the datasource's schema need to reflect the type
+	 *
+	 * @param id the event id
+	 * @param title the event title
+	 * @param start the start date
+	 * @param end the end date
+	 */
+	public SchedulerEvent(Object id, String title, Date start, Date end)
+	{
+		this(id, title, start.getTime(), end.getTime());
+	}
+
+	/**
+	 * Constructor<br>
+	 * <b>Caution:</b> if the id is not a number, the datasource's schema need to reflect the type
+	 *
+	 * @param id the event id
+	 * @param title the event title
+	 * @param start the start date
+	 * @param end the end date
+	 */
+	public SchedulerEvent(Object id, String title, long start, long end)
+	{
+		this.id = id;
+		this.title = title;
+		this.start = start;
+		this.end = end;
+	}
+
+	// Constructor (Integer) //
 
 	/**
 	 * Constructor<br>
@@ -73,7 +145,7 @@ public class SchedulerEvent implements Serializable
 	 * @param title the event title
 	 * @param start the start date
 	 */
-	public SchedulerEvent(int id, String title, Date start)
+	public SchedulerEvent(Integer id, String title, Date start)
 	{
 		this(id, title, start.getTime());
 	}
@@ -86,7 +158,7 @@ public class SchedulerEvent implements Serializable
 	 * @param title the event title
 	 * @param start the start date
 	 */
-	public SchedulerEvent(int id, String title, long start)
+	public SchedulerEvent(Integer id, String title, long start)
 	{
 		this(id, title, start, DateUtils.addHours(start, DEFAULT_RANGE));
 	}
@@ -99,7 +171,7 @@ public class SchedulerEvent implements Serializable
 	 * @param start the start date
 	 * @param end the end date
 	 */
-	public SchedulerEvent(int id, String title, Date start, Date end)
+	public SchedulerEvent(Integer id, String title, Date start, Date end)
 	{
 		this(id, title, start.getTime(), end.getTime());
 	}
@@ -112,19 +184,12 @@ public class SchedulerEvent implements Serializable
 	 * @param start the start date
 	 * @param end the end date
 	 */
-	public SchedulerEvent(int id, String title, long start, long end)
+	public SchedulerEvent(Integer id, String title, long start, long end)
 	{
 		this.id = id;
 		this.title = title;
-		this.description = null;
-
 		this.start = start;
 		this.end = end;
-		this.allDay = false;
-
-		this.recurrenceId = null;
-		this.recurrenceRule = null;
-		this.recurrenceException = null;
 	}
 
 	// Properties //
@@ -134,9 +199,30 @@ public class SchedulerEvent implements Serializable
 	 *
 	 * @return the id
 	 */
-	public int getId()
+	public Object getId()
 	{
 		return this.id;
+	}
+
+	/**
+	 * Gets the unique identifier of the scheduler event
+	 *
+	 * @return the id as a string object, or {@code null}
+	 */
+	public String getIdAsString()
+	{
+		return this.id != null ? this.id.toString() : null;
+	}
+
+	/**
+	 * Gets the unique identifier of the scheduler event<br>
+	 * This method does not check for class cast
+	 *
+	 * @return the id as a integer object, or {@code null}
+	 */
+	public Integer getIdAsInteger()
+	{
+		return this.id != null ? (Integer) this.id : null;
 	}
 
 	/**
@@ -144,7 +230,7 @@ public class SchedulerEvent implements Serializable
 	 *
 	 * @param id the id
 	 */
-	public void setId(int id)
+	public void setId(Object id)
 	{
 		this.id = id;
 	}
@@ -408,6 +494,6 @@ public class SchedulerEvent implements Serializable
 
 	public static boolean isNew(SchedulerEvent event)
 	{
-		return event != null && event.id == NEW_ID;
+		return event.id == null;
 	}
 }
