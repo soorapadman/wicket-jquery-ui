@@ -17,16 +17,15 @@
 package com.googlecode.wicket.kendo.ui.scheduler;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import org.apache.wicket.ajax.json.JSONArray;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONObject;
-import org.apache.wicket.util.lang.Generics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.googlecode.wicket.jquery.core.utils.DateUtils;
+import com.googlecode.wicket.jquery.core.utils.JsonUtils;
 import com.googlecode.wicket.kendo.ui.scheduler.resource.ResourceList;
 
 /**
@@ -47,18 +46,10 @@ public class SchedulerConverter implements ISchedulerConverter
 		{
 			JSONObject object = new JSONObject();
 
-			object.put("id", event.getId());
+			object.put("id", event.getId()); // Object
 			object.put("isAllDay", event.isAllDay());
-
-			if (event.getTitle() != null)
-			{
-				object.put("title", event.getTitle());
-			}
-
-			if (event.getDescription() != null)
-			{
-				object.put("description", event.getDescription());
-			}
+			object.putOpt("title", event.getTitle()); // might be null
+			object.putOpt("description", event.getDescription()); // might be null
 
 			if (event.getStart() != null)
 			{
@@ -71,20 +62,9 @@ public class SchedulerConverter implements ISchedulerConverter
 			}
 
 			// recurrence //
-			if (event.getRecurrenceId() != null)
-			{
-				object.put("recurrenceId", event.getRecurrenceId());
-			}
-
-			if (event.getRecurrenceRule() != null)
-			{
-				object.put("recurrenceRule", event.getRecurrenceRule());
-			}
-
-			if (event.getRecurrenceException() != null)
-			{
-				object.put("recurrenceException", event.getRecurrenceException());
-			}
+			object.putOpt("recurrenceId", event.getRecurrenceId()); // might be null
+			object.putOpt("recurrenceRule", event.getRecurrenceRule()); // might be null
+			object.putOpt("recurrenceException", event.getRecurrenceException()); // might be null
 
 			// resources //
 			for (String field : event.getFields())
@@ -121,32 +101,18 @@ public class SchedulerConverter implements ISchedulerConverter
 			event.setRecurrenceException(object.optString("recurrenceException"));
 
 			// Resources //
-			Pattern pattern = Pattern.compile("([\\w-]+)");
-
 			for (ResourceList list : lists)
 			{
-				List<String> values = Generics.newArrayList();
-
 				String field = list.getField();
-				String value = object.optString(field);
+				Object value = object.opt(field);
 
-				if (value != null)
+				if (list.isMultiple() && value instanceof JSONArray)
 				{
-					Matcher matcher = pattern.matcher(value);
-
-					while (matcher.find())
-					{
-						values.add(matcher.group());
-					}
+					event.setValue(field, JsonUtils.toList((JSONArray) value));
 				}
-
-				if (list.isMultiple())
+				else
 				{
-					event.setValue(field, this.convertFieldValues(field, values));
-				}
-				else if (!values.isEmpty())
-				{
-					event.setValue(field, this.convertFieldValue(field, values.get(0)));
+					event.setValue(field, value);
 				}
 			}
 
@@ -158,41 +124,5 @@ public class SchedulerConverter implements ISchedulerConverter
 		}
 
 		return null;
-	}
-
-	/**
-	 * Converts a single-resource {@code String} value to an {@code Object}<br>
-	 * This method is called by {@link #toObject(JSONObject, List)}
-	 * 
-	 * @param field the resource name
-	 * @param value the value to convert
-	 * @return the string value, by default (no conversion)
-	 */
-	protected Object convertFieldValue(String field, String value)
-	{
-		return value;
-	}
-
-	/**
-	 * Converts a {@code List} of multiple-resource {@code String} values to a {@code List} of {@code Object}<br>
-	 * This method is called by {@link #toObject(JSONObject, List)}
-	 * 
-	 * @param field the resource name
-	 * @param values the value list to convert
-	 * @return the string {@code List} converted to object {@code List}
-	 */
-	protected final List<Object> convertFieldValues(String field, List<String> values)
-	{
-		List<Object> list = Generics.newArrayList();
-
-		if (values != null)
-		{
-			for (String value : values)
-			{
-				list.add(this.convertFieldValue(field, value));
-			}
-		}
-
-		return list;
 	}
 }

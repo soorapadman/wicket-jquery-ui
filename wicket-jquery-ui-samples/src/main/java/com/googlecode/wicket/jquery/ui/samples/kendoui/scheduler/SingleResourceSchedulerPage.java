@@ -167,7 +167,7 @@ public class SingleResourceSchedulerPage extends AbstractSchedulerPage // NOSONA
 	static ResourceList newResourceList()
 	{
 		ResourceList list = new ResourceList("Agenda", ResourceEventsDAO.AGENDA_ID);
-		list.add(new Resource(ResourceEventsDAO.AGENDA_1, AGENDA_NAME1, "#6699cc")); // resource ids are string by default
+		list.add(new Resource(ResourceEventsDAO.AGENDA_1, AGENDA_NAME1, "#6699cc")); // using string ids
 		list.add(new Resource(ResourceEventsDAO.AGENDA_2, AGENDA_NAME2, "#cc6699"));
 
 		return list;

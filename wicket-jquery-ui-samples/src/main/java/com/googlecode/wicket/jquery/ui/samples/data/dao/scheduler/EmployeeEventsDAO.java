@@ -12,8 +12,8 @@ public class EmployeeEventsDAO extends AbstractSchedulerEventsDAO
 	public static final Integer ROOM_2 = 2;
 
 	public static final String EMPLOYEE_ID = "employeeId";
-	public static final String EMPLOYEE_1 = "123-456"; // uid like
-	public static final String EMPLOYEE_2 = "456-789";
+	public static final String EMPLOYEE_1 = "f5d884f9-7657-474f-8a7a-884ad591ef3b"; // uuid strings
+	public static final String EMPLOYEE_2 = "970ad1d7-505d-4095-a228-dafef8c04f6e";
 
 	private static EmployeeEventsDAO instance = null;
 
