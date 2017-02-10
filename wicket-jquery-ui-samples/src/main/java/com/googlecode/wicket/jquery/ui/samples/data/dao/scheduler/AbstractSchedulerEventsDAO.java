@@ -22,7 +22,7 @@ public abstract class AbstractSchedulerEventsDAO
 	{
 		for (SchedulerEvent event : this.list)
 		{
-			if (eventId.equals(event.getIdAsInteger()))
+			if (eventId.equals(event.getId(Integer.class)))
 			{
 				return event;
 			}
@@ -63,7 +63,8 @@ public abstract class AbstractSchedulerEventsDAO
 	 */
 	public SchedulerEvent update(SchedulerEvent event)
 	{
-		SchedulerEvent e = this.getEvent(event.getIdAsInteger());
+		Integer eventId = event.getId(Integer.class);
+		SchedulerEvent e = this.getEvent(eventId);
 
 		if (e != null)
 		{
@@ -84,7 +85,8 @@ public abstract class AbstractSchedulerEventsDAO
 
 	public void delete(SchedulerEvent event)
 	{
-		SchedulerEvent e = this.getEvent(event.getIdAsInteger());
+		Integer eventId = event.getId(Integer.class);
+		SchedulerEvent e = this.getEvent(eventId);
 
 		if (e != null)
 		{

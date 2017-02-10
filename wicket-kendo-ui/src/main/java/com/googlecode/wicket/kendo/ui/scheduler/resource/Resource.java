@@ -247,7 +247,7 @@ public class Resource implements Serializable
 		{
 			object.put("value", this.id);
 			object.put("text", this.text);
-			object.putOpt("color", this.color); // might be null
+			object.putOpt("color", this.color); // may be null
 
 			for (Entry<String, Object> entry : this.fields.entrySet())
 			{

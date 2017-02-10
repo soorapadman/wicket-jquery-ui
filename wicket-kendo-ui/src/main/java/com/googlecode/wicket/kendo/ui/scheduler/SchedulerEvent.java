@@ -25,9 +25,11 @@ import java.util.Set;
 import com.googlecode.wicket.jquery.core.utils.DateUtils;
 
 /**
- * Provides a scheduler event that can be used with a {@link SchedulerModel}<br/>
+ * Provides a scheduler event that can be used with a {@link SchedulerModel}<br>
  * If the IDs are not numbers, the datasource's schema need to reflect the type. ie:
- * <pre><code>
+ * 
+ * <pre>
+ * <code>
  * // Scheduler
  * protected void onConfigure(SchedulerDataSource dataSource)
  * {
@@ -39,7 +41,9 @@ import com.googlecode.wicket.jquery.core.utils.DateUtils;
  * 	dataSource.set("schema", String.format("{ model: { fields: %s } }", options));
  * }
  *
- * </code></pre>
+ * </code>
+ * </pre>
+ * 
  * @author Sebastien Briquet - sebfz1
  *
  */
@@ -73,7 +77,7 @@ public class SchedulerEvent implements Serializable
 	{
 		this((Object) null, "", new Date());
 	}
-	
+
 	// Constructor (Object) //
 
 	/**
@@ -135,7 +139,7 @@ public class SchedulerEvent implements Serializable
 		this.end = end;
 	}
 
-	// Constructor (Integer) //
+	// Constructor (Number) //
 
 	/**
 	 * Constructor<br>
@@ -145,7 +149,7 @@ public class SchedulerEvent implements Serializable
 	 * @param title the event title
 	 * @param start the start date
 	 */
-	public SchedulerEvent(Integer id, String title, Date start)
+	public SchedulerEvent(Number id, String title, Date start)
 	{
 		this(id, title, start.getTime());
 	}
@@ -158,7 +162,7 @@ public class SchedulerEvent implements Serializable
 	 * @param title the event title
 	 * @param start the start date
 	 */
-	public SchedulerEvent(Integer id, String title, long start)
+	public SchedulerEvent(Number id, String title, long start)
 	{
 		this(id, title, start, DateUtils.addHours(start, DEFAULT_RANGE));
 	}
@@ -171,7 +175,7 @@ public class SchedulerEvent implements Serializable
 	 * @param start the start date
 	 * @param end the end date
 	 */
-	public SchedulerEvent(Integer id, String title, Date start, Date end)
+	public SchedulerEvent(Number id, String title, Date start, Date end)
 	{
 		this(id, title, start.getTime(), end.getTime());
 	}
@@ -184,7 +188,7 @@ public class SchedulerEvent implements Serializable
 	 * @param start the start date
 	 * @param end the end date
 	 */
-	public SchedulerEvent(Integer id, String title, long start, long end)
+	public SchedulerEvent(Number id, String title, long start, long end)
 	{
 		this.id = id;
 		this.title = title;
@@ -206,23 +210,13 @@ public class SchedulerEvent implements Serializable
 
 	/**
 	 * Gets the unique identifier of the scheduler event
-	 *
-	 * @return the id as a string object, or {@code null}
+	 * 
+	 * @return the id, casted to the supplied type (unchecked)
 	 */
-	public String getIdAsString()
+	@SuppressWarnings("unchecked")
+	public <T> T getId(Class<T> type)
 	{
-		return this.id != null ? this.id.toString() : null;
-	}
-
-	/**
-	 * Gets the unique identifier of the scheduler event<br>
-	 * This method does not check for class cast
-	 *
-	 * @return the id as a integer object, or {@code null}
-	 */
-	public Integer getIdAsInteger()
-	{
-		return this.id != null ? (Integer) this.id : null;
+		return (T) this.id;
 	}
 
 	/**

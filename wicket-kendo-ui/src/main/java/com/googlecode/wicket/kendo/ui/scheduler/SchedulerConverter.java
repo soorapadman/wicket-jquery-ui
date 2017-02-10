@@ -48,8 +48,8 @@ public class SchedulerConverter implements ISchedulerConverter
 
 			object.put("id", event.getId()); // Object
 			object.put("isAllDay", event.isAllDay());
-			object.putOpt("title", event.getTitle()); // might be null
-			object.putOpt("description", event.getDescription()); // might be null
+			object.putOpt("title", event.getTitle()); // may be null
+			object.putOpt("description", event.getDescription()); // may be null
 
 			if (event.getStart() != null)
 			{
@@ -62,9 +62,9 @@ public class SchedulerConverter implements ISchedulerConverter
 			}
 
 			// recurrence //
-			object.putOpt("recurrenceId", event.getRecurrenceId()); // might be null
-			object.putOpt("recurrenceRule", event.getRecurrenceRule()); // might be null
-			object.putOpt("recurrenceException", event.getRecurrenceException()); // might be null
+			object.putOpt("recurrenceId", event.getRecurrenceId()); // may be null
+			object.putOpt("recurrenceRule", event.getRecurrenceRule()); // may be null
+			object.putOpt("recurrenceException", event.getRecurrenceException()); // may be null
 
 			// resources //
 			for (String field : event.getFields())
@@ -87,7 +87,7 @@ public class SchedulerConverter implements ISchedulerConverter
 	{
 		try
 		{
-			SchedulerEvent event = new SchedulerEvent();
+			SchedulerEvent event = this.newSchedulerEvent();
 			event.setId(object.get("id")); // Object
 			event.setTitle(object.optString("title"));
 			event.setDescription(object.optString("description"));
@@ -124,5 +124,15 @@ public class SchedulerConverter implements ISchedulerConverter
 		}
 
 		return null;
+	}
+
+	/**
+	 * Gets a new {@link SchedulerEvent}
+	 * 
+	 * @return a new {@link SchedulerEvent}
+	 */
+	protected SchedulerEvent newSchedulerEvent()
+	{
+		return new SchedulerEvent();
 	}
 }
