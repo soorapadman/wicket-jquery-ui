@@ -19,17 +19,10 @@ package com.googlecode.wicket.kendo.ui.form.datetime.local;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 import org.apache.wicket.core.request.handler.IPartialPageRequestHandler;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.convert.ConversionException;
-import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.validation.ValidationError;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.core.Options;
@@ -49,7 +42,6 @@ import com.googlecode.wicket.kendo.ui.form.datetime.TimePickerBehavior;
 public class AjaxDateTimePicker extends DateTimePicker implements IValueChangedListener // NOSONAR
 {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(AjaxDateTimePicker.class);
 
 	/**
 	 * Constructor
@@ -147,69 +139,6 @@ public class AjaxDateTimePicker extends DateTimePicker implements IValueChangedL
 		super(id, model, locale, datePattern, timePattern);
 	}
 
-	// Methods //
-
-	/**
-	 * Gets a formated value of input(s)<br>
-	 * This method is designed to provide the 'value' argument of {@link IConverter#convertToObject(String, Locale)}
-	 *
-	 * @param dateInput the date input
-	 * @param timeInput the time input
-	 * @return a formated value
-	 */
-	protected String formatInput(String dateInput, String timeInput)
-	{
-		if (this.isTimePickerEnabled())
-		{
-			return String.format("%s %s", dateInput, timeInput);
-		}
-
-		return dateInput;
-	}
-
-	@Override
-	public void convertInput()
-	{
-		final IConverter<LocalDateTime> converter = this.getConverter(LocalDateTime.class);
-
-		String dateInput = this.datePicker.getInput();
-		String timeInput = this.timePicker.getInput();
-
-		try
-		{
-			String value = this.formatInput(dateInput, timeInput);
-			this.setConvertedInput(converter.convertToObject(value, this.getLocale()));
-		}
-		catch (ConversionException e)
-		{
-			if (LOG.isDebugEnabled())
-			{
-				LOG.debug(e.getMessage(), e);
-			}
-
-			ValidationError error = new ValidationError();
-			error.addKey("DateTimePicker.ConversionError"); // wicket6
-			error.setVariable("date", dateInput);
-			error.setVariable("time", timeInput);
-
-			this.error(error);
-		}
-	}
-
-	// Properties //
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public <C> IConverter<C> getConverter(Class<C> type)
-	{
-		if (LocalDateTime.class.isAssignableFrom(type))
-		{
-			return (IConverter<C>) AjaxDateTimePicker.newConverter(this.getTextFormat());
-		}
-
-		return super.getConverter(type);
-	}
-
 	// Events //
 
 	@Override
@@ -220,45 +149,20 @@ public class AjaxDateTimePicker extends DateTimePicker implements IValueChangedL
 
 	// Factories //
 
-	/**
-	 * Gets a new {@link LocalDateTime} {@link IConverter}.
-	 * 
-	 * @param format the time format
-	 * @return the converter
-	 */
-	private static IConverter<LocalDateTime> newConverter(final String pattern)
-	{
-		return new IConverter<LocalDateTime>() { // NOSONAR
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public LocalDateTime convertToObject(String value, Locale locale) throws ConversionException
-			{
-				try
-				{
-					return LocalDateTime.parse(value, DateTimeFormatter.ofPattern(pattern, locale));
-				}
-				catch (DateTimeParseException e)
-				{
-					throw new ConversionException(e.getMessage(), e);
-				}
-			}
-
-			@Override
-			public String convertToString(LocalDateTime datetime, Locale locale)
-			{
-				return datetime != null ? datetime.format(DateTimeFormatter.ofPattern(pattern, locale)) : null;
-			}
-		};
-	}
-
 	@Override
 	protected DatePicker newDatePicker(String id, IModel<LocalDate> model, Locale locale, String datePattern, Options options)
 	{
 		return new AjaxDatePicker(id, model, locale, datePattern, options) { // NOSONAR
 
 			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void onConfigure()
+			{
+				super.onConfigure();
+
+				this.setEnabled(AjaxDateTimePicker.this.isEnabled());
+			}
 
 			@Override
 			public JQueryBehavior newWidgetBehavior(String selector)
@@ -271,7 +175,11 @@ public class AjaxDateTimePicker extends DateTimePicker implements IValueChangedL
 					public void onValueChanged(IPartialPageRequestHandler handler)
 					{
 						AjaxDateTimePicker.this.processInput();
-						AjaxDateTimePicker.this.onValueChanged(handler);
+
+						if (!AjaxDateTimePicker.this.hasErrorMessage())
+						{
+							AjaxDateTimePicker.this.onValueChanged(handler);
+						}
 					}
 				};
 
@@ -295,6 +203,14 @@ public class AjaxDateTimePicker extends DateTimePicker implements IValueChangedL
 		return new AjaxTimePicker(id, model, locale, timePattern, options) { // NOSONAR
 
 			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void onConfigure()
+			{
+				super.onConfigure();
+
+				this.setEnabled(AjaxDateTimePicker.this.isEnabled() && AjaxDateTimePicker.this.isTimePickerEnabled());
+			}
 
 			@Override
 			public JQueryBehavior newWidgetBehavior(String selector)
